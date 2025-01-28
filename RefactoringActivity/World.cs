@@ -12,26 +12,47 @@ public class World
 
     private void InitializeWorld()
     {
-        Location start = new("Start", "You are at the starting point of your adventure.");
-        Location forest = new("Forest", "You are in a dense, dark forest.");
-        Location cave = new("Cave", "You see a dark, ominous cave.");
+        var start = LocationDialouge(out var forest, out var cave);
 
-        start.Exits.Add("north", "Forest");
-        forest.Exits.Add("south", "Start");
-        forest.Exits.Add("east", "Cave");
-        cave.Exits.Add("west", "Forest");
+        ExitDirections(start, forest, cave);
 
-        start.Items.Add("map");
-        forest.Items.Add("key");
-        forest.Items.Add("potion");
-        cave.Items.Add("sword");
+        Items(start, forest, cave);
 
         start.Puzzles.Add(new Puzzle("riddle",
             "What's tall as a house, round as a cup, and all the king's horses can't draw it up?", "well"));
 
+        Location(start, forest, cave);
+    }
+
+    private void Location(Location start, Location forest, Location cave)
+    {
         Locations.Add("Start", start);
         Locations.Add("Forest", forest);
         Locations.Add("Cave", cave);
+    }
+
+    private static void Items(Location start, Location forest, Location cave)
+    {
+        start.Items.Add("map");
+        forest.Items.Add("key");
+        forest.Items.Add("potion");
+        cave.Items.Add("sword");
+    }
+
+    private static void ExitDirections(Location start, Location forest, Location cave)
+    {
+        start.Exits.Add("north", "Forest");
+        forest.Exits.Add("south", "Start");
+        forest.Exits.Add("east", "Cave");
+        cave.Exits.Add("west", "Forest");
+    }
+
+    private static Location LocationDialouge(out Location forest, out Location cave)
+    {
+        Location start = new("Start", "You are at the starting point of your adventure.");
+        forest = new("Forest", "You are in a dense, dark forest.");
+        cave = new("Cave", "You see a dark, ominous cave.");
+        return start;
     }
 
     public bool MovePlayer(Player player, string direction)

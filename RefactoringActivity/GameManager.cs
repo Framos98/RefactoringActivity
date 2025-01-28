@@ -8,12 +8,7 @@ public class GameManager
 
     public void RunGame()
     {
-        IsRunning = true;
-        Player = new Player(100);
-        World = new World();
-
-        Console.WriteLine("Welcome to the Text Adventure Game!");
-        Console.WriteLine("Type 'help' for a list of commands.");
+        GameStart();
 
         while (IsRunning)
         {
@@ -120,5 +115,15 @@ public class GameManager
                 Console.WriteLine("Unknown command. Try 'help'.");
             }
         }
+    }
+
+    private void GameStart()
+    {
+        IsRunning = true;
+        Player = new Player(100);
+        World = new World();
+
+        Console.WriteLine("Welcome to the Text Adventure Game!");
+        Console.WriteLine("Type 'help' for a list of commands.");
     }
 }
